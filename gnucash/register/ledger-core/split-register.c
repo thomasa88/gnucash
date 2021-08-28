@@ -1700,6 +1700,11 @@ unreconcile_splits (SplitRegister* reg)
     reg->unrecn_splits = NULL;
 }
 
+static gchar *next_transaction_id (QofBook *book)
+{
+    return qof_book_increment_and_format_counter (book, GNC_ID_TRANS);
+}
+
 gboolean
 gnc_split_register_save (SplitRegister* reg, gboolean do_commit)
 {
@@ -1959,6 +1964,15 @@ gnc_split_register_save (SplitRegister* reg, gboolean do_commit)
         {
             pending_trans = NULL;
             info->pending_trans_guid = *guid_null ();
+
+            /* Enter transaction number from the counter if the user has
+             * not entered a number. */
+            if (strlen (gnc_get_num_action(trans, NULL)) == 0)
+            {
+                gchar *num = next_transaction_id (gnc_get_current_book ());
+                gnc_set_num_action (trans, NULL, num, NULL);
+            }
+
         }
         unreconcile_splits (reg);
         xaccTransCommitEdit (trans);

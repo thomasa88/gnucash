@@ -69,6 +69,10 @@
                                 (N_ "Vendor number")
                                 (N_ "The format string to use for generating vendor numbers. This is a printf-style format string.")
                                 (N_ "The previous vendor number generated. This number will be incremented to generate the next vendor number."))
+        (list "Trans"           (N_ "Transaction number format")
+                                (N_ "Transaction number")
+                                (N_ "The format string to use for generating transaction numbers. This is a printf-style format string.")
+                                (N_ "The previous transaction number generated. This number will be incremented to generate the next transaction number."))
 ))
 
 (define (book-options-generator options)
