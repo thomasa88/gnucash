@@ -1967,10 +1967,10 @@ gnc_split_register_save (SplitRegister* reg, gboolean do_commit)
 
             /* Enter transaction number from the counter if the user has
              * not entered a number. */
-            if (strlen (gnc_get_num_action(trans, NULL)) == 0)
+            if (strlen (xaccTransGetNum(trans)) == 0)
             {
                 gchar *num = next_transaction_id (gnc_get_current_book ());
-                gnc_set_num_action (trans, NULL, num, NULL);
+                xaccTransSetNum(trans, num);
             }
 
         }
